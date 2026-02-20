@@ -1,0 +1,123 @@
+# ========== Unity ==========
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+
+# Asset Store tools / Package caches
+[Pp]ackages/com.unity.*.Cache/
+[Pp]ackages/packages-lock.json.meta
+
+# ========== IDE / OS ==========
+.vscode/
+.vs/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# macOS / Windows noise
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ========== Unity generated meta / artifacts ==========
+# Uncomment if you do NOT want to version meta files (usually you DO want meta files)
+# [Aa]ssets/**/*.meta
+
+# ========== Crash / debug / profiling ==========
+sysinfo.txt
+*.stacktrace
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Burst / IL2CPP / build debug outputs
+CardGame_BurstDebugInformation_*/
+**/*BurstDebugInformation_*/
+**/il2cpp_cache/
+**/Bee/
+**/*.pdb
+**/*.mdb
+
+# Gradle / Android build caches (Unity)
+**/.gradle/
+**/gradleOut/
+**/AndroidBuild/
+**/Launcher/build/
+**/unityLibrary/build/
+
+# ========== Addressables / StreamingAssets build outputs ==========
+[Aa]ssets/[Aa]ddressableAssetsData/*/*.bin*
+[Aa]ssets/[Aa]ddressableAssetsData/*/*.json
+[Aa]ssets/[Aa]ddressableAssetsData/*/*.hash
+[Aa]ssets/[Aa]ddressableAssetsData/*/*.catalog*
+[Aa]ssets/[Aa]ddressableAssetsData/*/BuildScriptPackedMode.cache
+
+# ========== Optional: keep local secrets out ==========
+# If you store keystore, google-services.json, etc. locally
+# *.keystore
+# **/google-services.json
+# **/Assets/**/Resources/**/secrets*.json
+
+# Unity "don't ship it" backup folder (name varies)
+test_BackUpThisFolder_ButDontShipItWith*/
+**/test_BackUpThisFolder_ButDontShipItWith*/
+
+# IL2CPP generated output (should not be versioned)
+**/il2cppoutput/
+**/Il2CppOutputProject/
+**/Il2CppBuildCache/
+**/il2cpp_cache/
+
+# --- Unity generated ---
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# --- IDE / OS ---
+.vscode/
+.vs/
+.idea/
+*.csproj
+*.sln
+*.user
+*.pidb
+*.booproj
+*.svd
+*.tmp
+*.log
+
+# --- Android / Gradle / CMake / NDK outputs ---
+.utmp/
+**/.utmp/
+**/.cxx/
+**/.gradle/
+**/build/
+**/cmake-build-*/
+
+# --- APK/AAB outputs ---
+*.apk
+*.aab
+
+# --- Unity Addressables / AssetBundles (if you use) ---
+# [Aa]ssets/[Aa]ddressableAssetsData/*/*.bin*
+# [Aa]ssets/[Aa]ssets[Bb]undles/
