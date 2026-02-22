@@ -13,14 +13,38 @@ public abstract class DeckBase : MonoBehaviour
     [SerializeField] protected float randomXY = 0.002f;
     [SerializeField] protected float randomYaw = 3f;
 
+    [Header("각자의 소켓(카드내는곳(과 연결")] 
+    [SerializeField] private CardSocket cardSocket;
+    
     protected readonly List<Card> cards = new List<Card>(); // 아래->위 순으로 유지(맨 끝이 top)
-
+    
     public int Count => cards.Count;
 
+    
+    
+    void Start()
+    {
+        cardSocket.OnCardDropped += HandleCardDropped;
+    }
+
+    void OnDestroy()
+    {
+        cardSocket.OnCardDropped -= HandleCardDropped;
+    }
+
+    private void HandleCardDropped()
+    {
+        Debug.Log("### 냈당ㅎ");
+        PopTop();
+    }
+
+    
     public void AddCardToBottom(Card card)
     {
         // 덱 소유로 편입
         card.transform.SetParent(stackRoot, worldPositionStays: false);
+        
+        // 리스트에 추가
         cards.Insert(0, card);
     }
 
@@ -44,29 +68,27 @@ public abstract class DeckBase : MonoBehaviour
     // 덱 비주얼/물리 배치 (Template Method)
     public void BuildStackVisual()
     {
-        for (int i = 0; i < cards.Count; i++)
+        for (var i = 0; i < cards.Count; i++)
         {
-            var c = cards[i];
-
-            // 덱에 있는 동안 물리 안정(원하면 true)
-            c.SetKinematic(true);
+            var card = cards[i];
 
             // y는 순서대로 쌓기
-            float y = i * cardHeight;
+            var y = i * cardHeight;
 
             // 약간의 랜덤으로 자연스럽게
-            float rx = Random.Range(-randomXY, randomXY);
-            float rz = Random.Range(-randomXY, randomXY);
-            float ryaw = Random.Range(-randomYaw, randomYaw);
+            var rx = Random.Range(-randomXY, randomXY);
+            var rz = Random.Range(-randomXY, randomXY);
+            var ryaw = Random.Range(-randomYaw, randomYaw);
 
-            c.transform.localPosition = new Vector3(rx, y, rz);
-            c.transform.localRotation = Quaternion.Euler(0, ryaw, 0);
+            card.transform.localPosition = new Vector3(rx, y, rz);
+            card.transform.localRotation = Quaternion.Euler(0, ryaw, 0);
         }
-
+        
         // 최상단 카드 처리
         OnTopCardChanged(PeekTop());
     }
-
+    
+    
     // 공통 흐름은 고정, 각 덱 타입별로 최상단 처리만 다르게
     protected abstract void OnTopCardChanged(Card newTop);
 }

@@ -20,7 +20,8 @@ public abstract class PlaySocketBase : MonoBehaviour
         card.transform.localRotation = Quaternion.identity;
 
         // 소켓에 올라간 카드는 물리 반응 켤지/끌지 정책 결정
-        card.SetKinematic(false);
+        card.SetGrabbable(false);
+        card.SetKinematic(true);
 
         OnCardAccepted(card);
     }
