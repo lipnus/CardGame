@@ -81,7 +81,7 @@ public abstract class DeckBase : MonoBehaviour
             var ryaw = Random.Range(-randomYaw, randomYaw);
 
             card.transform.localPosition = new Vector3(rx, y, rz);
-            card.transform.localRotation = Quaternion.Euler(0, ryaw, 0);
+            card.transform.localRotation = Quaternion.Euler(0, ryaw, 180);
         }
         
         // 최상단 카드 처리
