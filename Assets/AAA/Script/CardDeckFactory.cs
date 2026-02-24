@@ -62,9 +62,9 @@ public sealed class CardDeckFactory : MonoBehaviour
     private void Shuffle<T>(List<T> list)
     {
         // Fisher-Yates (직관 구현)
-        for (int i = list.Count - 1; i > 0; i--)
+        for (var i = list.Count - 1; i > 0; i--)
         {
-            int j = Random.Range(0, i + 1);
+            var j = Random.Range(0, i + 1);
             (list[i], list[j]) = (list[j], list[i]);
         }
     }

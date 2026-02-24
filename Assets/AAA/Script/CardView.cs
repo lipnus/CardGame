@@ -10,29 +10,48 @@ public sealed class CardView : MonoBehaviour
     [Header("향후 이미지 표시용(지금은 비워둬도 됨)")]
     [SerializeField] private Image image;
 
-    // 카드 데이터에 맞게 시각표현 갱신
     public void Render(CardData data)
     {
-        // 지금은 텍스트: A A A 형태로 표시
-        if (text != null)
+        if (text == null) return;
+
+        string symbol = "";
+        Color color = Color.white;
+
+        switch (data.Symbol)
         {
-            text.text = BuildSymbolString(data.Symbol, data.Count);
+            case CardSymbol.A:
+                symbol = "♥";
+                color = new Color32(220, 53, 69, 255);   // 빨
+                break;
+
+            case CardSymbol.B:
+                symbol = "■";
+                color = new Color32(1, 1, 1, 255);  
+                break;
+
+            case CardSymbol.C:
+                symbol = "●";
+                color = new Color32(0, 123, 255, 255);   // 파
+                break;
+
+            case CardSymbol.D:
+                symbol = "♠";
+                color = new Color32(255, ㅋ, 7, 255);   // 노
+                break;
         }
 
+        string s = "";
+        for (int i = 0; i < data.Count; i++)
+        {
+            s += symbol;
+            if (i != data.Count - 1) s += " ";
+        }
+
+        text.text = s;
+        text.color = color;
+        
         // 나중에 이미지로 갈 때:
         // if (image != null) image.sprite = CardArtDB.GetSprite(data.ArtKey) 같은 식으로 교체
-    }
+    } 
 
-    private string BuildSymbolString(CardSymbol symbol, int count)
-    {
-        // 예: A 3 -> "A A A"
-        // 직관 우선(효율 무시)
-        string s = "";
-        for (int i = 0; i < count; i++)
-        {
-            s += symbol.ToString();
-            if (i != count - 1) s += " ";
-        }
-        return s;
-    }
 }
