@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class DeckBase : MonoBehaviour
 {
@@ -13,10 +14,13 @@ public abstract class DeckBase : MonoBehaviour
     [SerializeField] protected float randomXY = 0.002f;
     [SerializeField] protected float randomYaw = 3f;
 
-    [Header("각자의 소켓(카드내는곳(과 연결")] 
-    [SerializeField] private CardSocket cardSocket;
+    [FormerlySerializedAs("userPlaySocket")]
+    [FormerlySerializedAs("cardSocket")]
+    [Header("각자의 소켓(카드내는곳)과 연결")] 
+    [SerializeField] private PlaySocketBase playSocket;
     
-    protected readonly List<Card> cards = new List<Card>(); // 아래->위 순으로 유지(맨 끝이 top)
+    // 관찰용
+    public List<Card> cards = new List<Card>(); // 아래->위 순으로 유지(맨 끝이 top)
     
     public int Count => cards.Count;
 
@@ -24,19 +28,17 @@ public abstract class DeckBase : MonoBehaviour
     
     void Start()
     {
-        cardSocket.OnCardDropped += HandleCardDropped;
+        playSocket.OnCardDropped += HandlePlayDropped;
     }
 
     void OnDestroy()
     {
-        cardSocket.OnCardDropped -= HandleCardDropped;
+        playSocket.OnCardDropped -= HandlePlayDropped;
     }
-
-    private void HandleCardDropped()
-    {
-        Debug.Log("### 냈당ㅎ");
-        PopTop();
-    }
+    
+    
+    protected abstract void HandlePlayDropped();
+    
 
     
     public void AddCardToBottom(Card card)
@@ -83,6 +85,8 @@ public abstract class DeckBase : MonoBehaviour
             card.transform.localPosition = new Vector3(rx, y, rz);
             card.transform.localRotation = Quaternion.Euler(0, ryaw, 180);
         }
+        
+        Debug.Log("### 빌드 탑");
         
         // 최상단 카드 처리
         OnTopCardChanged(PeekTop());

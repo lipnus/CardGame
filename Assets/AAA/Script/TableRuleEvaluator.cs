@@ -4,24 +4,24 @@ public sealed class TableRuleEvaluator
 {
     // 테이블(각 플레이어 소켓)에 올라온 카드들을 받아서
     // "같은 문양 합이 5"가 있는지 반환
-    public bool HasFiveCombo(List<PlaySocketBase> sockets, out FruitSymbol symbolHit)
+    public bool HasFiveCombo(List<PlaySocketBase> sockets, out CardSymbol symbolHit)
     {
-        symbolHit = FruitSymbol.A;
+        symbolHit = CardSymbol.A;
 
-        var sum = new Dictionary<FruitSymbol, int>()
+        var sum = new Dictionary<CardSymbol, int>()
         {
-            {FruitSymbol.A, 0},
-            {FruitSymbol.B, 0},
-            {FruitSymbol.C, 0},
-            {FruitSymbol.D, 0},
+            {CardSymbol.A, 0},
+            {CardSymbol.B, 0},
+            {CardSymbol.C, 0},
+            {CardSymbol.D, 0},
         };
 
         for (int i = 0; i < sockets.Count; i++)
         {
-            var c = sockets[i].CurrentCard;
-            if (c == null) continue;
+            var card = sockets[i].CurrentCard;
+            if (card == null) continue;
 
-            sum[c.Data.Symbol] += c.Data.Count;
+            sum[card.Data.Symbol] += card.Data.Count;
         }
 
         foreach (var kv in sum)

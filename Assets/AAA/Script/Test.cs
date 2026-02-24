@@ -10,6 +10,8 @@ public class Test : MonoBehaviour
     [SerializeField] private Transform cardPoolParent;   // 카드 생성 부모 (정리용)
     [SerializeField] private UserDeck userDeck;
     
+    [SerializeField] private GameManager gameManager;
+    
     public void ButtonAction1()
     {
         Debug.Log("Button 1 실행됨");
@@ -23,7 +25,7 @@ public class Test : MonoBehaviour
 
     private void Start()
     {
-        CreateAndStackAllCards();
+        gameManager.StartGame(1);
     }
 
     private void CreateAndStackAllCards()

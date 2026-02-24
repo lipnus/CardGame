@@ -38,7 +38,6 @@ public sealed class Card : MonoBehaviour
     
     private void OnSelectExited(SelectExitEventArgs args)
     {
-        Debug.Log("집은거 아니냐?");
         SetKinematic(false);
     }
 
@@ -52,8 +51,7 @@ public sealed class Card : MonoBehaviour
     // 덱에 쌓인 상태: 물리 안정화를 위해 잠깐 고정 같은 처리 가능
     public void SetKinematic(bool isKinematic)
     {
-        if (rb != null) rb.isKinematic = isKinematic;
-        Debug.Log("isKinematic: " + isKinematic);
+        if (rb) rb.isKinematic = isKinematic;
     }
 
  

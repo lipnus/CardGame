@@ -23,7 +23,7 @@ public sealed class CardView : MonoBehaviour
         // if (image != null) image.sprite = CardArtDB.GetSprite(data.ArtKey) 같은 식으로 교체
     }
 
-    private string BuildSymbolString(FruitSymbol symbol, int count)
+    private string BuildSymbolString(CardSymbol symbol, int count)
     {
         // 예: A 3 -> "A A A"
         // 직관 우선(효율 무시)

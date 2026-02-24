@@ -27,7 +27,7 @@ public sealed class CardDeckFactory : MonoBehaviour
     {
         var result = new List<CardData>(56);
 
-        foreach (FruitSymbol s in System.Enum.GetValues(typeof(FruitSymbol)))
+        foreach (CardSymbol s in System.Enum.GetValues(typeof(CardSymbol)))
         {
             // 1~4 : 각 3장
             for (int count = 1; count <= 4; count++)
@@ -48,15 +48,15 @@ public sealed class CardDeckFactory : MonoBehaviour
     // 플레이어 수(유저 1 + 적 N)에 맞춰 분배 (간단하게 라운드 로빈)
     public void Deal(List<Card> shuffledCards, List<DeckBase> decks)
     {
-        int deckCount = decks.Count;
-        for (int i = 0; i < shuffledCards.Count; i++)
+        var deckCount = decks.Count;
+        for (var i = 0; i < shuffledCards.Count; i++)
         {
             decks[i % deckCount].AddCardToBottom(shuffledCards[i]);
         }
 
         // 각 덱에서 쌓기 정렬 수행
-        foreach (var d in decks)
-            d.BuildStackVisual();
+        foreach (var deck in decks)
+            deck.BuildStackVisual();
     }
 
     private void Shuffle<T>(List<T> list)
