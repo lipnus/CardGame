@@ -32,16 +32,25 @@ public sealed class UserPlaySocket : PlaySocketBase
         var card = interactable.transform.GetComponent<Card>();
         if (!card) return;
 
-        // 카드 더미에 쌓기 + 정책 적용
-        AcceptCard(card);
-
-        // 소켓이 계속 잡고 있으면 다음 카드 못 받는 케이스 방지
-        StartCoroutine(ForceReleaseNextFrame(interactable));
-
-        // 유저는 XR 이벤트 기준으로 "냈다"
-        RaiseDropped();
+        StartCoroutine(UserDropRoutine(interactable, card));
     }
 
+    private IEnumerator UserDropRoutine(IXRSelectInteractable interactable, Card card)
+    {
+        // XRI 내부 select/attach 처리 한 프레임 지나가게
+        yield return null;
+
+        // 소켓이 잡고 있으면 먼저 강제 해제
+        if (socket && socket.interactionManager && socket.hasSelection)
+            socket.interactionManager.SelectExit(socket, interactable);
+
+        // 이제 우리가 최종 부모/포즈를 확정(= pileParent 아래로)
+        AcceptCard(card);
+
+        // 유저 드롭 이벤트
+        RaiseDropped();
+    }
+    
     protected override void ApplyInteractionPolicy(Card card)
     {
         // 기존 유지: 더미에 들어간 카드는 다시 집히면 안 됨

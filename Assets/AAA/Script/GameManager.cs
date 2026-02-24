@@ -108,6 +108,23 @@ public sealed class GameManager : MonoBehaviour
         // TODO: 승자 처리(카드 회수/점수/덱에 넣기 등)
         // 지금은 “누가 먼저 눌렀는지”만 확정
         Debug.Log($"벨 승자: playerIndex={playerIndex}, comboSymbol={comboSymbol}");
+        
+        // --- 카드 전부 회수 시작 ---
+        var winnerDeck = GetDeckByPlayerIndex(playerIndex);
+
+        // 모든 소켓에서 카드 수거
+        foreach (var socket in allSockets)
+        {
+            var cards = socket.TakeAllCards();
+            foreach (var card in cards)
+            {
+                winnerDeck.AddCardToBottom(card);
+            }
+        }
+
+        // 비주얼 재정렬
+        winnerDeck.BuildStackVisual();
+        // --- 카드 전부 회수 끝 ---
 
         // 라운드 정리 후 다음 턴으로
         comboAvailable = false;
@@ -121,6 +138,12 @@ public sealed class GameManager : MonoBehaviour
             var enemyIdx = currentTurnIndex - 1;
             enemies[enemyIdx].TakeTurn();
         }
+    }
+    
+    private DeckBase GetDeckByPlayerIndex(int index)
+    {
+        if (index == 0) return userDeck;
+        return enemies[index - 1].GetComponentInChildren<EnemyDeck>();
     }
 
     // 다음 턴으로 이동

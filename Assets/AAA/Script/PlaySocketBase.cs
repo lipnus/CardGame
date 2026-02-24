@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class PlaySocketBase : MonoBehaviour
@@ -64,7 +65,32 @@ public abstract class PlaySocketBase : MonoBehaviour
         card.SetGrabbable(false);
         card.SetKinematic(true);
     }
+    
+    public List<Card> TakeAllCards()
+    {
+        var result = new List<Card>();
 
+        if (!pileParent) return result;
+
+        // 자식에서 "꺼내기" (부모 변경) + 리스트에 담기
+        while (pileParent.childCount > 0)
+        {
+            var t = pileParent.GetChild(pileParent.childCount - 1); // 위에서부터
+            var card = t.GetComponent<Card>();
+            if (card != null)
+                result.Add(card);
+
+            // 여기서 테이블 더미에서 제거됨(부모 해제)
+            t.SetParent(null, false);
+        }
+
+        pileCount = 0;
+        CurrentCard = null;
+
+        return result;
+    }
+    
+    
     /// <summary>
     /// 카드가 "수락 완료"된 직후 호출됨
     /// </summary>
